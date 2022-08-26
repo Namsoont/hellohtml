@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>page147(url.html)</title>
+	<style>
+		h3 {
+			text-align: center;
+			background-color: azure;
+		}
+
+		form {
+			border: 0px dotted gray;
+			width: 55%;
+			margin: auto;
+		}
+
+		ul {
+			list-style-type: none;
+		}
+
+		label {
+			display: inline-block;
+			width: 150px;
+			background-color: antiquewhite;
+			color: brown;
+			text-align: right;
+			padding-right: 5px;
+		}
+
+		input[type='submit'] {
+			width: 100%;
+			background-color: antiquewhite;
+			color: blue;
+		}
+		button {
+			background-color: antiquewhite;
+			color: red;
+		}
+	</style>
+</head>
+
+<body>
+	<h3>회원가입</h3>
+	<form action="">
+		<fieldset>
+			<legend>로그인 정보</legend>
+			<ul>
+				<li>
+					<label>아이디 </label>
+					<input type="text" id="user_id">
+					<button type="button">중복확인</button>
+				</li>
+				<li>
+					<label>비밀번호 </label>
+					<input type="text" id="user_pw"><br>
+				</li>
+				<li>
+					<label>비밀번호확인 </label>
+					<input type="text" id="user_pw1"><br>
+				</li>
+			</ul>
+		</fieldset>
+		<fieldset>
+			<legend>개인 정보</legend>
+			<ul>
+				<li>
+					<label for="name">이름</label>
+					<input type="text" name="neme">
+				</li>
+				<li>
+					<label for="email">메일주소</label>
+					<input type="email" name="email" id="email">
+				</li>
+				<li>
+					<label for="tel">연락처</label>
+					<input type="tel" name="tel" id="tel"><br>
+				</li>
+				<li>
+					<label for="url">블로그/홈페이지</label>
+					<input type="url" name="url" id="url">
+				</li>
+				<li>
+					<label for="birth">생년월일</label>
+					<input type="date" name="birth" id="birth">
+				</li>
+			</ul>
+		</fieldset>
+		<br>
+		<input type="submit" value="가입">
+	</form>
+
+</body>
+
+</html>

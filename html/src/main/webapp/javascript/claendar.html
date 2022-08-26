@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>javascript/calendar.html</title>
+</head>
+
+<body>
+    <h3>달력</h3>
+    <script>
+        //해당월의 공란을 반환해주는 함수.
+        //해달월의 마지막 날짜를 반환해주는 함수.
+        function getEmptyCnt(month) {
+            switch (month) {
+                case 1:
+                    return 6;
+                case 2:
+                    return ((getEmptyCnt(month - 1) + getLastDay(month - 1)) % 7);
+                case 3:
+                    return ((getEmptyCnt(month - 1) + getLastDay(month - 1)) % 7);
+                case 4:
+                    return ((getEmptyCnt(month - 1) + getLastDay(month - 1)) % 7);
+                case 5:
+                    return ((getEmptyCnt(month - 1) + getLastDay(month - 1)) % 7);
+                case 6:
+                    return ((getEmptyCnt(month - 1) + getLastDay(month - 1)) % 7);
+                case 7:
+                    return ((getEmptyCnt(month - 1) + getLastDay(month - 1)) % 7);
+                case 8:
+                    return ((getEmptyCnt(month - 1) + getLastDay(month - 1)) % 7);
+                case 9:
+                    return ((getEmptyCnt(month - 1) + getLastDay(month - 1)) % 7);
+                case 10:
+                    return ((getEmptyCnt(month - 1) + getLastDay(month - 1)) % 7);
+                case 11:
+                    return ((getEmptyCnt(month - 1) + getLastDay(month - 1)) % 7);
+                case 12:
+                    return ((getEmptyCnt(month - 1) + getLastDay(month - 1)) % 7);
+
+            }
+
+        }
+
+
+        function getLastDay(month) {
+            switch (month) {
+                case 1:
+                    return 31;
+                case 2:
+                    return 28;
+                case 3:
+                    return 31;
+                case 4:
+                    return 30;
+                case 5:
+                    return 31;
+                case 6:
+                    return 30;
+                case 7:
+                    return 31;
+                case 8:
+                    return 31;
+                case 9:
+                    return 30;
+                case 10:
+                    return 31;
+                case 11:
+                    return 30;
+                case 12:
+                    return 31;
+
+            }
+        }
+
+
+
+        let cal = '<table border=1>';
+        cal +=
+            '<tr><th style="color: red" >일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th style="color: blue">토</th></tr>';
+        let month = 1;
+        // 1일 위치를 지정.
+        let empty = getEmptyCnt(month);
+        let lastDay = getLastDay(month);
+        // let empty = 1; //getEmptyCnt();
+        // let lastDay = 31; //getLastDay();
+        for (let f = 0; f < empty; f++) {
+            cal += '<td></td>';
+        }
+        for (let day = 1; day <= lastDay; day++) {
+            if ((empty + day) % 7 == 1) {
+                cal += `<td style="color: red;">${day}</td>`;
+            } else if ((empty + day) % 7 == 0) {
+                cal += `<td style="color: blue;">${day}</td>`;
+            } else {
+                cal += `<td>${day}</td>`;
+            }
+            if ((empty + day) % 7 == 0) {
+                cal += '<tr></tr>';
+            }
+        }
+        cal += '</tr>';
+        cal += '</table>';
+
+        document.write(cal);
+    </script>
+
+</body>
+
+</html>

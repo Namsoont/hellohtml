@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입</title>
+    <style>
+        fieldset {
+            width: 70%;
+        }
+        form {
+            background-color: antiquewhite;
+            color: blueviolet;
+        }
+
+        input[type='number'] {
+            display: inline-block;
+        }
+
+        div {
+            width: 20%;
+            margin: -10px auto;
+        }
+        #a {
+            width: 10%;
+        }
+       th, td {
+            border: 1px dotted rgb(139, 73, 73); 
+        }
+    </style>
+
+</head>
+
+<body>
+    <h3>회원정보입력</h3>
+    <hr>
+    <form action="">
+        <fieldset>
+            <table border="1" style="border-collapse: collapse;">
+                <tr>
+                    <th>이름</th>
+                    <td><input type="text"></td>
+                </tr>
+                <tr>
+                    <th>아이디</th>
+                    <td><input type="text"><button>중복확인</button></td>
+                </tr>
+                <tr>
+                    <th>비밀번호</th>
+                    <td><input type="text"><small> 비밀번호는 4~16자로 입력해주세요.</small></td>
+                </tr>
+                <tr>
+                    <th>비밀번호 확인</th>
+                    <td><input type="text"></td>
+                </tr>
+                <tr>
+                    <th>생일/성별</th>
+                    <td><input type="number" id="a">년<input type="number" id="a">월<input type="number" id="a">일&nbsp;<input type="radio" name="sex">남<input type="radio" name="sex">여</td>
+                </tr>
+                <tr>
+                    <th>이메일</th>
+                    <td><input type="email">@<select id="tel1">
+                            <option value="naver">naver.com</option>
+                            <option value="google">google.com</option>
+                            <option value="daum">daum.net</option>
+                        </select><button>중복확인</button></td>
+                </tr>
+                <tr>
+                    <th>휴대폰</th>
+                    <td><select id="tel1">
+                            <option value="011">011</option>
+                            <option value="010">010</option>
+                        </select>-<input type="text" name="tel2">-<input type="text" name="tel3"></td>
+                </tr>
+                <tr>
+                    <th>추천인</th>
+                    <td><input type="text"><button>추천인 검색</button></td>
+                </tr>
+                <tr>
+                    <th>뉴스메일</th>
+                    <td>&nbsp;&nbsp;수신<input type="radio" name="news">&nbsp;&nbsp;수신 거부<input type="radio" name="news"></td>
+                </tr>
+                <tr>
+                    <th>SMS안내</th>
+                    <td>&nbsp;&nbsp;수신<input type="radio" name="sms">&nbsp;&nbsp;수신 거부<input type="radio" name="sms"></td>
+                </tr>
+                <tr>
+                    <th>앱Push알림</th>
+                    <td>&nbsp;&nbsp;수신<input type="radio" name="appPush">&nbsp;&nbsp;수신 거부<input type="radio" name="appPush"></td>
+
+                </tr>
+                <tr>
+                    <th>미터</th>
+                    <td>
+                        <meter value=".5" min="0" max="1"></meter>
+                    </td>
+                </tr>
+                <tr>
+                    <th>자기소개</th>
+                    <td><textarea name="intro" cols="30" rows="10"></textarea>
+                    </td>
+                </tr>
+            </table>
+            <div>
+                <input type="imge" width="" src="" alt="">
+                <input type="imge" width="" src="" alt="">
+            </div>
+        </fieldset>
