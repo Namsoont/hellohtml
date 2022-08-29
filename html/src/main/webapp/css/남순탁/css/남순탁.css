@@ -1,0 +1,87 @@
+div.container {
+    width: 1000px;
+
+}
+body {
+    font-family: '맑은 고딕';
+}
+p {
+    text-align: center;
+}
+
+.left{
+    text-align: left;
+}
+
+h3 {
+    text-align: center;
+
+}
+li {
+    display: inline;
+    width: 200px;
+}
+
+header>nav {
+    box-sizing: border-box;
+    text-align: center;
+    padding-top: 5px;
+    background-color: gray;
+    margin: auto;
+
+
+} 
+input {
+    float: right;
+    width: 200px;
+    padding: 3px;
+    
+    
+}
+button {
+    width: 150px;
+    border: 0px;
+    border-radius: 10px;
+    background-color: white;
+    padding: 15px;
+}
+label {
+    width: 130px;
+}
+
+aside {
+    box-sizing: border-box;
+    display: inline;
+    background-color: skyblue;
+    float: left;
+    width: 200px;
+    height: 700px;
+}
+
+section {
+    text-align: center;
+    margin: 10%;
+    float: left;
+    width: 600px;
+    background-color: bisque;
+}
+
+aside.box {
+    box-sizing: border-box;
+    background-color: skyblue;
+    float: right;
+    padding-bottom: 50px;
+
+
+}
+
+article {
+    margin: 10px;
+    padding: 10px;
+}
+
+footer {
+    text-align: center;
+    clear: both;
+    background-color: bisque;
+}
