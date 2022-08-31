@@ -19,6 +19,10 @@ document.write('ABC'.toLowerCase() + '<br>'); //소문자로변환
 
 Date.prototype.hhmiss = function() {
     // 09:08:07, 12:34:07,
-    
+    Date.prototype.hhmiss = function () {
+        // 09:08:07
+        console.log(('0' + now.getHours()).slice(-2) + ':' + ('0' + now.getMinutes()).slice(-2) + ':' + ('0' + now.getSeconds()).slice(-2));
+    }
+    now.hhmiss();
 }
 document.write(now.hhmiss());
