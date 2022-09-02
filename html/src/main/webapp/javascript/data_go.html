@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>data_go.html</title>
+</head>
+
+<body>
+    <h3>예방접종센터 조회</h3>
+    <label for="conter">조회대상 입력 : <input type="text" name="center" id="center"></label>
+    <button id="searchBtn">조회</button> <br>
+
+    <label for="">시도리스트: 
+        <select id="sido"><option>선택</option></select></label>
+    <br><br>
+    <table border="1">
+        <thead>
+            <th>시설아이디</th>
+            <th>센터명</th>
+            <th>시도</th>
+            <th>시군수</th>
+            <th>연락처</th>
+            <th>주소</th>
+        </thead>
+        <tbody id="list"></tbody>
+    </table>
+    <script>
+
+        //조회클릭.
+        document.getElementById('searchBtn').addEventListener('click', searchCenterFnc);
+
+        // 화면초기화.
+        let gdata;
+
+        let req_url =
+            `https://api.odcloud.kr/api/15077586/v1/centers?page=1&perPage=284&returnType=json&serviceKey=8bo%2BYh%2FNYyfrNYxmEkx%2BKQV8wfJCgBarRzv%2B%2FXVWxF768JozVbSqsWpDdL4G337x7hN%2B2bgRUW%2FdlcUpnL9AFg%3D%3D`;
+        let xhtp = new XMLHttpRequest();
+        xhtp.open('get', req_url);
+        xhtp.send();
+        xhtp.onload = pageLoadCallBack
+
+        ///////////////////////////
+
+        function pageLoadCallBack() {
+            let result = JSON.parse(this.responseText);
+            console.log(result);
+
+            let tbody = document.getElementById('list');
+
+            
+            // 결과중에서 result.data 가 필요한 실데이터.
+            let data = result.data;
+            gdata = data;
+
+            let sidoData = []; // 시도리스트 뿌려주기 위한.
+            
+
+            data.forEach(center => {
+                // console.log(`data => &{center}`);
+                // if (center.sido.startsWith('대구')) {
+                //     console.log('data =>', center)
+                // }
+                //초기화면
+                // if (idx <10 )
+                //  tbody.append(makeTr(center));
+                
+                tbody.append(makeTr(center));
+                // 시도데이터 구분
+                if(sidoData.indexOf(center.sido) == -1) {
+                    sidoData.push(center.sido);
+                }
+            });
+            // select에 option을 달아준다
+            let sel = document.getElementById('sido');
+            sidoData.forEach(sido => {
+                let opt = document.createElement('option');
+                opt.textContent = sido;
+                sel.append(opt);
+            });
+            
+        }
+
+
+        function makeTr(center) {
+            let tr = document.createElement('tr');
+            // 보고싶은 항목.
+            let infos = ['id', 'centerName', 'sido', 'sigungu', 'phoneNumber', 'address'];
+            infos.forEach(info => {
+                let td = document.createElement('td');
+                let txt = document.createTextNode(center[info]);
+                td.append(txt);
+                tr.append(td);
+            })
+            return tr;
+
+        }
+
+        function searchCenterFnc() {
+
+
+            let sido = document.getElementById('center').value; //조회하려는 시도.
+            let tbody = document.getElementById('list');
+           
+            //이미 있던 tr 삭제
+            document.querySelectorAll('#list>tr').forEach(tr => tr.remove());
+            
+            //추가로 그려주는 부분.
+            gdata.forEach(center => {
+                if(center.sido.startsWith(sido)) {
+                    tbody.append(makeTr(center)); //조회된 시도 정보를 보여줌
+                }
+            });
+
+        }
+    </script>
+
+</body>
+
+</html>

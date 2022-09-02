@@ -30,34 +30,6 @@ let result = names.map(mapfun)
 console.log(result);
 
 
-// map.filter 메소드 체인.
-// let result1 = names.map((name, idx) => {
-//     let obj = {}
-//     obj.name = name;
-//     obj.sno = idx + 1; 
-//     return obj;
-// }).filter((member) => {
-//     return member.name.startsWith('이');  
-// });
-// console.log(result);
-
-// // map메소드.
-// let members1 = names.map((name, idx) => {
-//     // let obj = {}
-//     // obj.name = name;
-//     // obj.sno = idx + 1; //{name:'이현성', sno: 1}
-//     // return obj;
-// });
-
-
-// // filter 메소드.
-// let lees1 = members.filter((member) => {
-//     //return값이 true이면 반환, false이면 반환이 없음.
-//     return member.name.startsWith('최');
-    
-// });
-
-// reduce 로 map과 같은 기능 구현.
 mambers = names.reduce((acc, val, idx) => {
     let obj = {};
     obj.name = val;
@@ -95,3 +67,32 @@ let reduceFilFnc = (acc, val) => {
 result = names.reduce(reduceMapFnc, []).reduce(reduceFilFnc, [])
 console.log(result);
 
+
+// map.filter 메소드 체인.
+// let result1 = names.map((name, idx) => {
+//     let obj = {}
+//     obj.name = name;
+//     obj.sno = idx + 1; 
+//     return obj;
+// }).filter((member) => {
+//     return member.name.startsWith('이');  
+// });
+// console.log(result);
+
+// // map메소드.
+// let members1 = names.map((name, idx) => {
+//     // let obj = {}
+//     // obj.name = name;
+//     // obj.sno = idx + 1; //{name:'이현성', sno: 1}
+//     // return obj;
+// });
+
+
+// // filter 메소드.
+// let lees1 = members.filter((member) => {
+//     //return값이 true이면 반환, false이면 반환이 없음.
+//     return member.name.startsWith('최');
+    
+// });
+
+// reduce 로 map과 같은 기능 구현.
