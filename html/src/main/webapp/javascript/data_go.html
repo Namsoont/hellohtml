@@ -31,6 +31,9 @@
 
         //조회클릭.
         document.getElementById('searchBtn').addEventListener('click', searchCenterFnc);
+        // 리스트선택.
+        document.getElementById('sido').addEventListener('change', searchCenterFnc);
+
 
         // 화면초기화.
         let gdata;
@@ -99,6 +102,9 @@
         }
 
         function searchCenterFnc() {
+            console.log(e.terget);
+            
+
 
 
             let sido = document.getElementById('center').value; //조회하려는 시도.
