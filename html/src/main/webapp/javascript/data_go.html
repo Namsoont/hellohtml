@@ -10,16 +10,24 @@
         * {
             box-sizing: border-box;
         }
+
         table {
             width: 70%;
             float: left;
             border: 1px solid green;
         }
+
         div#detailInfo {
             width: 30%;
             float: right;
             border: 1px solid green;
             height: 300px;
+        }
+
+        div#piechart {
+            clear: both;
+            width: 900px;
+            height: 700px;
         }
     </style>
 </head>
@@ -49,12 +57,18 @@
 
         </tbody>
         <div id="detailInfo">
-            <li>org: <span>국립중앙의료원</span></li>
-            <li>lat: <span>12.34567</span></li>
-            <li>lng: <span>123.2324</span></li>
-
+            <ul>
+                <li>org: <span></span></li>
+                <li>lat: <span></span></li>
+                <li>lng: <span></span></li>
+            </ul>
         </div>
+
     </table>
+    <!-- 차트 구글.. -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <div id="piechart" width="900px" height="700px"></div>
 
     <script>
         // 조회클릭
@@ -70,11 +84,11 @@
         document.getElementById('sido').addEventListener('change', searchCenterFnc);
 
         // detailInfo 마우스오버
-       
+
 
         // ?뒤가 parameter
         let req_url =
-            `https://api.odcloud.kr/api/15077586/v1/centers?page=1&perPage=100&returnType=JSON&serviceKey=O%2FLhKCKKGGOnbYMXBN06pZvZamSvvneQMNhYlbTlyqTOgLGwiPC2u8ISOie%2FnQYBPF4OSxidGRMYW5SPg9Gq8w%3D%3D`;
+            `https://api.odcloud.kr/api/15077586/v1/centers?page=1&perPage=284&returnType=JSON&serviceKey=O%2FLhKCKKGGOnbYMXBN06pZvZamSvvneQMNhYlbTlyqTOgLGwiPC2u8ISOie%2FnQYBPF4OSxidGRMYW5SPg9Gq8w%3D%3D`;
         let xhtp = new XMLHttpRequest();
         xhtp.open('get', req_url);
         xhtp.send();
@@ -85,13 +99,15 @@
 
             let tbody = document.getElementById('list');
 
+            // 결과중에서 result.data 가 필요한 실데이터.
             let data = result.data;
+
             gdata = data;
 
             // 시도리스트
-            let sidoData = [];
+            let sidoData = []; // 시도리스트 뿌려주기 위한.
             // 차트
-            let chartData = [];
+            let chartData = []; //[['서울특별시', 3]]
 
             data.forEach(center => {
                 // 전체 데이터
@@ -103,19 +119,24 @@
                 }
 
                 //차트에 들어갈 데이터 구분.
-            //     if(chartData.come(ary => ary[0] == center.sido)) {
-                   
-            //     } else {
-            //         chartData.push([center.sido, 1])
-            //     }
-                  
+                //같은 시도의 값이 나오면 차트 데이터에 
+                //시도 (서울특별시, 대전광역시) chartDate.push(['서울특별시', 1])
+                //['서울특별시', 2] 같은 서울특별시있으면  
+                // 만족하는 값 반환.
+                let dChart = chartData.find(chaet => chaet[0] == center.sido);
+                if (dChart) { // 값이 있으면 ...true
+                    dChart[1]++;
+                } else { //값이 없으면...
+                    chartData.push([center.sido, 1]);
+                }
 
             });
-
+            console.log(chartData);
+            makeChart();
 
             let sel = document.getElementById('sido');
 
-            // select태그 > option
+            // select태그 > option을 달아준다.
             sidoData.forEach(sido => {
                 let opt = document.createElement('option');
                 opt.textContent = sido;
@@ -123,7 +144,38 @@
                 sel.append(opt);
             });
 
-        }
+            
+            // 차트 그려주는부분.
+            function makeChart() {
+                google.charts.load('current', {
+                    'packages': ['corechart']
+                });
+                google.charts.setOnLoadCallback(drawChart);
+                
+                function drawChart() {
+                    // let chartData = [
+                    //   ['Task', 'Hours per Day'],
+                    //   ['Work',     11],
+                    //   ['Eat',      2],
+                    //   ['Commute',  2],
+                    //   ['Watch TV', 2],
+                    //   ['Sleep',    7]
+                    // ];
+
+                    chartData.unshift(['시도', '건수']);
+                    var data = google.visualization.arrayToDataTable(chartData);
+
+                    var options = {
+                        title: '코로나19 센터 시도별 현황'
+                    };
+
+                    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+                    chart.draw(data, options);
+                }
+            }
+
+        } //end of pageLoadCallBack();
 
         function pageLoadCallBack1() {
             document.querySelectorAll('#list>tr').forEach(tr => tr.remove());
@@ -142,6 +194,26 @@
 
         function makeTr(center) {
             let tr = document.createElement('tr');
+
+            // 마우스 올라가면 해당 org, lat, lng를 #detailInfo>ul>li>span 에 띄우기
+            tr.addEventListener('mouseover', function () {
+                let props = ['org', 'lat', 'lng'];
+
+                props.forEach((prop, idx) => {
+                    let detailInfo = document.querySelectorAll('#detailInfo>ul>li>span');
+                    detailInfo[idx].textContent = center[prop] != '' ? center[prop] : '없음';
+                });
+
+            });
+
+            // 마우스가 벗어나면 해당 org, lat, lng를 #detailInfo>ul>li>span 비워주기
+            tr.addEventListener('mouseout', function () {
+                let detailInfo = document.querySelectorAll('#detailInfo>ul>li>span');
+
+                detailInfo[0].textContent = '';
+                detailInfo[1].textContent = '';
+                detailInfo[2].textContent = '';
+            });
 
             // 보고싶은 항목
             let infos = ['id', 'centerName', 'sido', 'sigungu', 'address', 'phoneNumber'];
@@ -165,16 +237,13 @@
             let tbody = document.getElementById('list');
 
             document.querySelectorAll('#list>tr').forEach(tr => tr.remove());
-
+            
             gdata.forEach(center => {
                 if (center.sido.startsWith(sido)) {
                     tbody.append(makeTr(center));
                 }
             });
         }
-
-        
-       
     </script>
 </body>
 

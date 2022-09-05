@@ -195,16 +195,20 @@
        }
 
        // 등록 ajax 콜백함수.
-       function addMemberCallback() {
-        let result =JSON.parse(this.responseText);
-        console.log(result);
+        function addMemberFnc() {
+        // 사용자 값을 읽어와야함.
+        let id = document.getElementById('mem_id').value; //input값 value.
+        let ps = document.getElementById('mem_pw').value;
+        let nm = document.getElementById('mem_nm').value;
+        let param = 'mid='+id+'&mps='+ps+'&mnm='+nm;
 
-        if (result.retCode == 'success') {
-            let list = document.getElementById('list');
-            list.append(makeTr(result));
-        }else if (result.retCode == 'fail') {
-            alert('처리중 에러')
-        }
+        // 등록하는 서블릿 호출.
+        let addAjx = new XMLHttpRequest();
+        addAjx.open('post', '../addMemberServlet');
+        addAjx.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        addAjx.send(param);
+        addAjx.onload = addMemberCallback;
+
        }
 
        // 데이터 변경함수.
